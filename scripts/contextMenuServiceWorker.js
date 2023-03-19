@@ -10,24 +10,8 @@ const getKey = () => {
   });
 };
 
-const sendMessage = (content) => {
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    const activeTab = tabs[0].id;
-
-    chrome.tabs.sendMessage(
-      activeTab,
-      { message: "inject", content },
-      (response) => {
-        if (response.status === "failed") {
-          console.log("injection failed.");
-        }
-      }
-    );
-  });
-};
-
 // Setup our generate function
-const generate = async (info) => {
+const generate = async (prompt) => {
   // Get your API key from storage
   const key = await getKey();
   const url = "https://api.openai.com/v1/completions";
